@@ -13,8 +13,18 @@ struct ChatHistoryView: View {
     var body: some View {
         List(chatHistory, id: \.id) { entry in
             Text(entry.text)
-                .foregroundStyle(entry.who == ChatEntry.Who.user ? .green : .red)
+                .padding(10)
+                .background((isUser(entry) ? .blue : .clear))
+                .clipShape(Capsule())
+                .frame(maxWidth: .infinity, alignment: (isUser(entry) ?  .trailing : .leading))
+                
+            
         }
+        .background(Color.clear.opacity(0.01))
+    }
+    
+    func isUser(_ entry: ChatEntry) -> Bool {
+        entry.who == ChatEntry.Who.user
     }
 }
 
